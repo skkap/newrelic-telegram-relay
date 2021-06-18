@@ -8,7 +8,8 @@ def send_telegram_message(token, chat_id, message):
     payload = {
         "chat_id": chat_id, 
         "text": message, 
-        "disable_notification": False
+        "disable_notification": False,
+        "parse_mode": "Markdown"
     }
 
     requests.post(host, headers=headers, data=json.dumps(payload))
