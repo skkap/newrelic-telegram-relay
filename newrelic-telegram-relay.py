@@ -21,18 +21,18 @@ class WebHook(Resource):
         print(payload)
         for chat_id in chat_ids:
             print('Sending message to telegram chat: ' + chat_id)
-            state = payload['current_state']
+            state = payload.get('current_state')
             if state == 'open':
                 state_title = '🚨 ' + \
-                    payload['event_type'] + ' ' + state
+                    payload.get('event_type') + ' ' + state
             else:
                 state_title = '✅ ' + \
-                    payload['event_type'] + ' ' + state
+                    payload.get('event_type') + ' ' + state
             message = "*" + state_title + '*\n' \
-                '*Policy*: ' + payload['policy_name'] + '\n' \
-                '*Details*: ' + payload['details'] + '\n' \
-                '*Time*: ' + payload['timestamp_utc_string'] + '\n' \
-                '[Chart](' + payload['violation_chart_url'] + ')'
+                '*Policy*: ' + payload.get('policy_name') + '\n' \
+                '*Details*: ' + payload.get('details') + '\n' \
+                '*Time*: ' + payload.get('timestamp_utc_string') + '\n' \
+                '[Chart](' + payload.get('violation_chart_url') + ')'
             send_telegram_message(token, chat_id, message)
         return 'OK'
 
